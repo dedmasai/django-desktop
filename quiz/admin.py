@@ -7,7 +7,7 @@ from .models import Task,  AnswerQuiz
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
 
-    list_display = "pk", "varNumber", "number", "text", "answer"
+    list_display = "pk", "isSubmitted","varNumber", "number", "text", "answer",
 
 @admin.register(AnswerQuiz)
 class VariantAdmin(admin.ModelAdmin):

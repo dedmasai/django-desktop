@@ -3,9 +3,11 @@
         	Quiz
         {% endblock %}
 {% block body %}
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-    <button type="submit">Отправить</button>
-    </form>
+        <div>{{ t.number }}</div>
+        <div>{{ t.text }}</div>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_ul}}
+        <button type="submit">Отправить</button>
+        </form>
 {% endblock %}
