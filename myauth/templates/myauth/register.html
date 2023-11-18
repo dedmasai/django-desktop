@@ -1,0 +1,21 @@
+{%  extends "myauth/base.html" %}
+        {% block title %}
+        	Регистрация пятых классов
+        {% endblock %}
+{% block body %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <h3>Регистрация пятых классов</h3>
+    <h5>Имя</h5>
+    {{form.first_name}}
+    <h5>Фамилия</h5>
+    {{form.last_name}}
+    <h5>Логин для входа</h5>
+    {{form.username}}
+    <h5>Пароль</h5>
+    {{form.password1}}
+    <h5>Пароль еще раз</h5>
+    {{form.password2}}
+    <input type="submit" name="Зарегистрироваться">
+</form>
+{% endblock %}

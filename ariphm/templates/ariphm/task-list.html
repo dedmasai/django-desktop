@@ -1,0 +1,16 @@
+{%  extends "ariphm/base.html" %}
+        {% block title %}
+        	Task list
+        {% endblock %}
+{% block body %}
+    {% if tasks %}
+        <div>
+            {% for task in tasks %}
+                <div>
+                    <p>Задание {{ task.name }}</p>
+                     <p>Ответ {{ task.answer }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
