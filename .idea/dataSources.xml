@@ -10,5 +10,13 @@
       <jdbc-url>jdbc:mysql://127.0.0.1:3306/django_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="@tw" uuid="7481f596-aba7-4daf-8b78-a632fe807a33">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>tw</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://vh424.timeweb.ru:3306/co53144_voshod</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'myauth.apps.MyauthConfig',
+    'ariphm.apps.AriphmConfig',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,17 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+# DATABASES = {
+# 'default': {
+# 'ENGINE': 'django.db.backends.mysql',
+# 'NAME': 'co53144_voshod',
+# 'USER': 'co53144_voshod',
+# 'PASSWORD': 'asdfasdf',
+# 'HOST': 'vh424.timeweb.ru',
+# 'PORT' : '3306',
+# }
+# }
+#
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.mysql',
@@ -95,6 +107,7 @@ DATABASES = {
 'PORT' : '3306',
 }
 }
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
