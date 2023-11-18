@@ -16,18 +16,24 @@ def quiz(request:HttpRequest):
                     ans=form.cleaned_data["uAnswer"]
                     AnswerQuiz.objects.create(
                         uAnswer=ans,
+                        correct= ans==tObj.answer,
                         userN=request.user.id,
                         isSubmitted=True,
                         taskN=tObj.id,
                         numbInV=tObj.number,
                     )
+                    if ans==tObj.answer: tObj.rightAnswCount+=1
                     tObj.isSubmitted=True
                     tObj.save()
+                    return redirect('quiz:quiz')
             else:
+
                 form=QuizForm
             context ={
                 "t":tObj,
-                "form":form
+                "form":form,
+                "fname":request.user.first_name,
+                "lname": request.user.last_name,
             }
         else:
             return redirect('myauth:register')

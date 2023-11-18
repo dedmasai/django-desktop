@@ -11,3 +11,6 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model=AnswerQuiz
         fields = ['uAnswer']
+        labels = {
+            'uAnswer': 'Введи сюда ответ:'
+        }
