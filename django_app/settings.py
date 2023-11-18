@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'myauth.apps.MyauthConfig',
-    'ariphm.apps.AriphmConfig',
+    'quiz.apps.QuizConfig'
 ]
 
 MIDDLEWARE = [
