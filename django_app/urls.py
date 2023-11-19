@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.http import HttpResponse
-from django.urls import path,include
+from django.urls import path,include,re_path
 
 from django.shortcuts import render
 
 
 urlpatterns = [
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^', include('cms.urls')),
     path('',include('myauth.urls')),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('quiz/',include('quiz.urls')),
 ]
