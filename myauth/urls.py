@@ -6,7 +6,8 @@ from .views import (
     AboutMeView,
     register_page,
     welcome,
-    MyLogoutView
+    MyLogoutView,
+    RegisterView
 )
 
 app_name = "myauth"
@@ -15,7 +16,7 @@ urlpatterns = [
 
     path("", welcome, name="welcome"),
     path("logout/", MyLogoutView.as_view(), name="logout"),
-    path("register/", register_page, name="register"),
+    path("register/", RegisterView.as_view(), name="register"),
     path("about-me/", AboutMeView.as_view(), name="about-me"),
     path("login/", LoginView.as_view(template_name='myauth/login.html',
                                      redirect_authenticated_user=True), name="login"),
