@@ -39,5 +39,4 @@ def quiz(request:HttpRequest):
             return redirect('myauth:register')
         return render(request, "quiz/quiz.html", context=context)
     else:
-        return redirect('myauth:welcome')
-
+        return redirect('myauth:about-me')
