@@ -1,0 +1,38 @@
+{%  extends "quiz/base.html" %}
+        {% block title %}
+        	Результаты
+        {% endblock %}
+{% block body %}
+
+
+
+    <table class="blueTable">
+        <caption> <h1>Результаты  </h1> <h3>{{ user.first_name }} {{ user.last_name }}</h3> </caption>
+	<tbody>
+    <tr>
+			<td> Номер варианта </td>
+			<td> Номер задания </td>
+			<td> Ваш ответ </td>
+			<td> Задание зачтено</td>
+		</tr>
+    {% for answ in answs %}
+		<tr>
+			<td> {{ answ.userN }}</td>
+            <td> {{ answ.taskN }}</td>
+            <td> {{ answ.uAnswer }}</td>
+            <td> {% if answ.correct %}Да
+            	{% else %}Нет
+            {% endif %} </td>
+		</tr>
+    {% endfor %}
+    </table>
+    
+    <h4>
+      Правильных ответов  {{ count }}  из {{ all }}.
+
+    </h4>
+    <h4>
+      Оценка  {{mark}}
+    </h4>
+<h3><a href={% url "myauth:welcome"%}>Вернуться на основную страницу</a></h3>
+{% endblock %}
