@@ -45,16 +45,18 @@ def results(request: HttpRequest):
     if request.user.is_authenticated:
         answs = AnswerQuiz.objects.filter(userN=request.user.id, isSubmitted=True)
         if answs:
-
             all=answs.count()
             count=answs.filter(correct=True).count()
-            if count *2  < all:
-                mark=2
-            elif count*4<3*all:
-                mark=3
-            elif count*10<all*9:
-                mark=4
-            else:mark=5
+            if count>3:
+                if count *2  < all:
+                    mark=2
+                elif count*4<3*all:
+                    mark=3
+                elif count*10<all*9:
+                    mark=4
+                else:mark=5
+            else:
+                mark=count+2
             context = {
                 "all":all,
                 "count":count,
