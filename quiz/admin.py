@@ -11,6 +11,8 @@ class TaskAdmin(admin.ModelAdmin):
 
 @admin.register(AnswerQuiz)
 class VariantAdmin(admin.ModelAdmin):
-    list_display = "correct","taskN", "userN", "numbInV", "uAnswer"
+    list_display = "correct","taskN", "userN", "numbInV", "uAnswer","created_at", "correctAns", "textAns"
+
+
 
 
