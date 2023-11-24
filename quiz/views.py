@@ -64,7 +64,7 @@ def results(request: HttpRequest):
                 "answs": answs,
                 "user": request.user,
             }
-        return render(request, "quiz/res.html", context=context)
+        return render(request, "quiz/results.html", context=context)
     else:
         return redirect('myauth:register')
 

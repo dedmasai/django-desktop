@@ -18,3 +18,5 @@ class AnswerQuiz(models.Model):
     correct = models.BooleanField(default=False)
     isSubmitted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    correctAns=models.IntegerField(default=0)
+    textAns=models.TextField(null=True, blank=True)
