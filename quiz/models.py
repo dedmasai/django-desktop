@@ -3,7 +3,11 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+class Work(models.Model):
+    name=models.TextField(null=True, blank=True)
 class Task(models.Model):
+    toUser=models.ForeignKey(User, on_delete=models.PROTECT, null=True)
+    work=models.ForeignKey(Work, on_delete=models.PROTECT, null=True)
     varNumber=models.IntegerField(default=0)
     number=models.IntegerField(default=0)
     text=models.TextField(null=False, blank=True)
@@ -32,8 +36,7 @@ class VClass(models.Model):
     def __str__(self):
         return self.name
 
-class Work(models.Model):
-    name=models.TextField(null=True, blank=True)
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     sClass = models.ForeignKey(VClass,on_delete=models.PROTECT, null=True)
