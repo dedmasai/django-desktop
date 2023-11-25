@@ -5,12 +5,14 @@ from django.urls import path
 from .views import (
     quiz,
     results,
-    journal
+    journal,
+    work
 )
 
 app_name = "quiz"
 
 urlpatterns = [
+    path("work", work, name="work"),
     path("journal", journal, name="journ"),
     path("res", results, name="res"),
     path("", quiz, name="quiz"),

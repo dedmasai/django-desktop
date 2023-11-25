@@ -1,7 +1,7 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 
-from .models import Task, AnswerQuiz
+from .models import Task, AnswerQuiz, Work
 from .forms import QuizForm
 
 
@@ -94,3 +94,35 @@ def journal(request: HttpRequest):
         return render(request, "quiz/journal.html", context=context)
     else:
         return redirect('myauth:register')
+def work(request:HttpRequest):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            w = Work.objects.get(pk=1)
+            tasks = Task.objects.filter(work=w, toUser=request.user)
+            for task in tasks:
+                ans=request.POST[str(task.pk)]
+                AnswerQuiz.objects.create(
+                    uAnswer=ans,
+                    correct = ans==str(task.answer),
+                    taskID=task,
+                    userID=request.user
+                )
+            w.student.remove(request.user.student)
+            return redirect('quiz:res')
+        else:
+            w=Work.objects.get(pk=1)
+            if w.student.filter(user=request.user).exists():
+                tasks=Task.objects.filter(work=w,toUser=request.user)
+                context ={
+                    'w':w,
+                    "tasks":tasks,
+                    "request":request,
+                }
+                return render(request, "quiz/work.html", context=context)
+            else:
+                return redirect('quiz:res') #work done
+
+    else:
+        return redirect('myauth:register')
+
+
