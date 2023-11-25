@@ -6,12 +6,14 @@ from .views import (
     quiz,
     results,
     journal,
-    work
+    work,
+    mainJournal
 )
 
 app_name = "quiz"
 
 urlpatterns = [
+    path("work_journal", mainJournal, name="main_journal"),
     path("work", work, name="work"),
     path("journal", journal, name="journ"),
     path("res", results, name="res"),

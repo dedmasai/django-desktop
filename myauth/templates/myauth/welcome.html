@@ -9,9 +9,9 @@
         Вы вошли как {{ f }} {{ l }}
         <h2> Тут можно:</h2>
 
-        <h3><a href={% url "quiz:quiz"%}>Выполнить задание</a></h3>
-        <h3><a href={% url "quiz:res"%}>Посмотреть результаты</a></h3>
-        <h3><a href={% url "quiz:journ"%}>Журнал</a></h3>
+        <h3><a href={% url "quiz:work"%}>Выполнить задание</a></h3>
+    <!--    <h3><a href={% url "quiz:res"%}>Посмотреть результаты</a></h3> -->
+        <h3><a href={% url "quiz:main_journal"%}>Журнал</a></h3>
         <h3><a href={% url "myauth:logout"%}>Выйти из системы</a></h3>
 
     {% else%}

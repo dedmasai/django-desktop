@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 
@@ -107,6 +108,7 @@ def work(request:HttpRequest):
                     taskID=task,
                     userID=request.user
                 )
+                task.isSubmitted=True
             w.student.remove(request.user.student)
             return redirect('quiz:res')
         else:
@@ -125,4 +127,27 @@ def work(request:HttpRequest):
     else:
         return redirect('myauth:register')
 
+def mainJournal(request: HttpRequest):
+    if request.user.is_authenticated:
+        answs = AnswerQuiz.objects.all()
+        usrs=User.objects.all()
+        w=Work.objects.get(pk=1)
+        jL=[]
+        for usr in usrs:
+            ans = answs.filter(userID=usr, taskID__isSubmitted=True)
+            plusList = []
+            for an in ans:
+                if an.correct:
+                    plusList.append('+')
+                else:
+                    plusList.append('-')
+            jL.append({"name":usr.first_name+' '+usr.last_name, "pl":plusList,"corAns":plusList.count("+")})
 
+        context = {
+            "ans":ans,
+            "jL":jL,
+            "user": request.user,
+        }
+        return render(request, "quiz/work_journal.html", context=context)
+    else:
+        return redirect('myauth:register')
