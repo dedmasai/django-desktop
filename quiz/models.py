@@ -20,3 +20,5 @@ class AnswerQuiz(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     correctAns=models.IntegerField(default=0)
     textAns=models.TextField(null=True, blank=True)
+    taskID = models.ForeignKey(Task, on_delete=models.PROTECT, null=True)
+    userID=models.ForeignKey(User,on_delete=models.PROTECT, null=True)

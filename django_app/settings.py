@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'myauth.apps.MyauthConfig',
-    'quiz.apps.QuizConfig'
+    'quiz.apps.QuizConfig',
+    
+    'django_extensions'
 ]
 
 MIDDLEWARE = [

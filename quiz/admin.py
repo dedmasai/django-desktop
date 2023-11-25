@@ -11,8 +11,8 @@ class TaskAdmin(admin.ModelAdmin):
 
 @admin.register(AnswerQuiz)
 class VariantAdmin(admin.ModelAdmin):
-    list_display = "correct","taskN", "userN", "numbInV", "uAnswer","created_at", "correctAns", "textAns"
-
+    list_display = "correct","taskN", "userN", "numbInV", "uAnswer","created_at", "correctAns", "textAns", "taskID", "userID"
+    list_display_links = "taskID", "userID"
 
 
 

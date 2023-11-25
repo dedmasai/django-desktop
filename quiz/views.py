@@ -69,3 +69,28 @@ def results(request: HttpRequest):
         return redirect('myauth:register')
 
 
+def journal(request: HttpRequest):
+    if request.user.is_authenticated:
+        answs = AnswerQuiz.objects.all()
+        j=[]
+        while answs.exists():
+            exUserID=answs.first().userID
+            ans=answs.filter(userID=exUserID)
+            plusList=[]
+            for an in ans:
+                if an.correct:
+                    plusList.append('+')
+                else:
+                    plusList.append('-')
+            u={"name":ans.first().userID.first_name+" "+ans.first().userID.last_name, "plus":plusList,"corAns":plusList.count("+")}
+            j.append(u)
+            answs=answs.exclude(userID=exUserID)
+
+        context = {
+                "tL":j[0]["plus"],
+                "uList":j,
+                "user": request.user,
+        }
+        return render(request, "quiz/journal.html", context=context)
+    else:
+        return redirect('myauth:register')
