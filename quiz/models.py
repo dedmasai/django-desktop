@@ -29,6 +29,8 @@ class AnswerQuiz(models.Model):
 class VClass(models.Model):
     name=models.TextField(null=True, blank=True)
     gender=models.TextField(null=True, blank=True)
+    def __str__(self):
+        return self.name
 
 class Work(models.Model):
     name=models.TextField(null=True, blank=True)
@@ -36,9 +38,10 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     sClass = models.ForeignKey(VClass,on_delete=models.PROTECT, null=True)
     workToDo=models.ManyToManyField(Work,blank=True,related_name='student')
-    gender=models.TextField(null=True, blank=True)
+    gender=models.CharField(max_length=10,null=True, blank=True)
     mark=models.FloatField(null=True, blank=True)
-
+    def __str__(self):
+        return self.user.first_name+' '+self.user.last_name
 
 
 @receiver(post_save, sender=User)
