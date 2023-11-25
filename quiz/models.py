@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Task(models.Model):
     varNumber=models.IntegerField(default=0)
@@ -22,3 +24,31 @@ class AnswerQuiz(models.Model):
     textAns=models.TextField(null=True, blank=True)
     taskID = models.ForeignKey(Task, on_delete=models.PROTECT, null=True)
     userID=models.ForeignKey(User,on_delete=models.PROTECT, null=True)
+
+
+class VClass(models.Model):
+    name=models.TextField(null=True, blank=True)
+    gender=models.TextField(null=True, blank=True)
+
+class Work(models.Model):
+    name=models.TextField(null=True, blank=True)
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    sClass = models.ForeignKey(VClass,on_delete=models.PROTECT, null=True)
+    workToDo=models.ManyToManyField(Work,blank=True,related_name='student')
+    gender=models.TextField(null=True, blank=True)
+    mark=models.FloatField(null=True, blank=True)
+
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Student.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+

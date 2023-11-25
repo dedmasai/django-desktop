@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Task,  AnswerQuiz
+from .models import Task, AnswerQuiz, Student
 
 
 @admin.register(Task)
@@ -14,5 +14,7 @@ class VariantAdmin(admin.ModelAdmin):
     list_display = "correct","taskN", "userN", "numbInV", "uAnswer","created_at", "correctAns", "textAns", "taskID", "userID"
     list_display_links = "taskID", "userID"
 
-
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ["pk","user","sClass","gender","mark"]
 
