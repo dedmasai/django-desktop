@@ -134,7 +134,7 @@ def work(request:HttpRequest):
 def mainJournal(request: HttpRequest):
     if request.user.is_authenticated:
         answs = AnswerQuiz.objects.all()
-        usrs=User.objects.all()
+        usrs=User.objects.all().order_by("last_name")
         tsks=Task.objects.all()
         w=Work.objects.get(pk=1)
         jL=[]
