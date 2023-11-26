@@ -6,15 +6,15 @@ from django.dispatch import receiver
 class Work(models.Model):
     name=models.TextField(null=True, blank=True)
 class Task(models.Model):
-    toUser=models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    work=models.ForeignKey(Work, on_delete=models.PROTECT, null=True)
+    toUser=models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    work=models.ForeignKey(Work, on_delete=models.DO_NOTHING, null=True)
     varNumber=models.IntegerField(default=0)
     number=models.IntegerField(default=0)
     text=models.TextField(null=False, blank=True)
     answer=models.IntegerField(default=0)
-    rightAnswCount=models.IntegerField(default=0)
+    rightAnsw=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    isSubmitted = models.BooleanField(default=False)
+    isSubmitted = models.BooleanField(default=False)#answered
 
 class AnswerQuiz(models.Model):
     taskN = models.IntegerField(default=0)
@@ -26,7 +26,7 @@ class AnswerQuiz(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     correctAns=models.IntegerField(default=0)
     textAns=models.TextField(null=True, blank=True)
-    taskID = models.ForeignKey(Task, on_delete=models.PROTECT, null=True)
+    taskID = models.ForeignKey(Task, on_delete=models.SET_NULL, null=True)
     userID=models.ForeignKey(User,on_delete=models.PROTECT, null=True)
 
 

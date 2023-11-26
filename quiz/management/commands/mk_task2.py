@@ -13,16 +13,16 @@ class Command(BaseCommand):
                 a = b * randint(3, 30)
                 d = a // b
                 text=f"Сколько будет {a} разделить на {b}?"
-                task, craeted= Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
-                self.stdout.write(f"Created task {task.text}")
+                Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
+
 
             for n in range(3,6):
                 b = randint(5, 20)
                 a = randint(3, 20)
                 d = a * b
                 text = f"Сколько будет {a} умножить на {b}?"
-                task, craeted = Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
-                self.stdout.write(f"Created task {task.text}")
+                Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
+
 
             for n in range(6,9):
                 b = randint(22, 77)
@@ -30,13 +30,12 @@ class Command(BaseCommand):
                 c = randint(0, b)
                 d = a +b
                 text = f"Что будет результатом сложения {a} и {b}?"
-                task, craeted = Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
-                self.stdout.write(f"Created task {task.text}")
+                Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
+
             for n in range(9,12):
                 b = randint(22, 77)
                 a = b+randint(33, 88)
                 c = randint(0, b)
                 d = a -b
                 text = f"Чему будет равна разность чисел {a} и {b}?"
-                task, craeted = Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)
-                self.stdout.write(f"Created task {task.text}")
+                Task.objects.create(varNumber=v.pk,toUser=v,work=w,number=n,text=text,answer=d)

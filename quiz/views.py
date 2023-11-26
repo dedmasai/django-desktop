@@ -99,7 +99,7 @@ def work(request:HttpRequest):
     if request.user.is_authenticated:
         if request.method == "POST":
             w = Work.objects.get(pk=1)
-            tasks = Task.objects.filter(work=w, toUser=request.user)
+            tasks = Task.objects.filter(work=w, toUser=request.user, isSubmitted=False)
             for task in tasks:
                 ans=request.POST[str(task.pk)]
                 AnswerQuiz.objects.create(
@@ -108,15 +108,15 @@ def work(request:HttpRequest):
                     taskID=task,
                     userID=request.user
                 )
+                task.rightAnsw=ans==str(task.answer)
                 task.isSubmitted=True
+                task.save()
             w.student.remove(request.user.student)
-            return redirect('quiz:res')
+            return redirect('quiz:quiz')
         else:
-            w=Work.objects.get(pk=1)
-            if w.student.filter(user=request.user).exists():
-                tasks=Task.objects.filter(work=w,toUser=request.user)
+            tasks=Task.objects.filter(toUser=request.user,isSubmitted=False)
+            if tasks.exists():
                 context ={
-                    'w':w,
                     "tasks":tasks,
                     "request":request,
                 }
@@ -131,20 +131,24 @@ def mainJournal(request: HttpRequest):
     if request.user.is_authenticated:
         answs = AnswerQuiz.objects.all()
         usrs=User.objects.all()
+        tsks=Task.objects.all()
         w=Work.objects.get(pk=1)
         jL=[]
+        maxLen=0
         for usr in usrs:
-            ans = answs.filter(userID=usr, taskID__isSubmitted=True)
+            tsksf = tsks.filter(toUser=usr, isSubmitted=True)
             plusList = []
-            for an in ans:
-                if an.correct:
+            for t in tsksf:
+                if t.rightAnsw:
                     plusList.append('+')
                 else:
                     plusList.append('-')
             jL.append({"name":usr.first_name+' '+usr.last_name, "pl":plusList,"corAns":plusList.count("+")})
-
+            if len(plusList)>maxLen: maxLen=len(plusList)
+        maxLenL=[i for i in range(1,maxLen+1)]
         context = {
-            "ans":ans,
+            'usrs':usrs,
+            "maxLenL" :maxLenL,
             "jL":jL,
             "user": request.user,
         }
