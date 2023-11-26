@@ -106,11 +106,11 @@ def work(request:HttpRequest):
                 else:ans=None
                 AnswerQuiz.objects.create(
                     uAnswer=ans,
-                    correct = ans==str(task.answer),
+                    correct = ans==task.answer,
                     taskID=task,
                     userID=request.user
                 )
-                task.rightAnsw=ans==str(task.answer)
+                task.rightAnsw=ans==task.answer
                 task.isSubmitted=True
                 task.uAnswer=ans
                 task.save()
