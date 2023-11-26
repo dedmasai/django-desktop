@@ -102,6 +102,8 @@ def work(request:HttpRequest):
             tasks = Task.objects.filter(work=w, toUser=request.user, isSubmitted=False)
             for task in tasks:
                 ans=request.POST[str(task.pk)]
+                if ans:ans=int(ans)
+                else:ans=None
                 AnswerQuiz.objects.create(
                     uAnswer=ans,
                     correct = ans==str(task.answer),
@@ -110,6 +112,7 @@ def work(request:HttpRequest):
                 )
                 task.rightAnsw=ans==str(task.answer)
                 task.isSubmitted=True
+                task.uAnswer=ans
                 task.save()
             w.student.remove(request.user.student)
             return redirect('quiz:quiz')
@@ -119,10 +122,11 @@ def work(request:HttpRequest):
                 context ={
                     "tasks":tasks,
                     "request":request,
+                    'ia': request.user.is_authenticated,
                 }
                 return render(request, "quiz/work.html", context=context)
             else:
-                return redirect('quiz:res') #work done
+                return redirect('quiz:main_journal') #work done
 
     else:
         return redirect('myauth:register')
@@ -144,9 +148,13 @@ def mainJournal(request: HttpRequest):
                 else:
                     plusList.append('-')
             jL.append({"name":usr.first_name+' '+usr.last_name, "pl":plusList,"corAns":plusList.count("+")})
-            if len(plusList)>maxLen: maxLen=len(plusList)
-        maxLenL=[i for i in range(1,maxLen+1)]
+            if len(plusList)>maxLen:
+                maxLen=len(plusList)
+                maxLenL=[]
+                for t in tsksf:
+                    maxLenL.append(t.number)
         context = {
+            'ia':request.user.is_authenticated,
             'usrs':usrs,
             "maxLenL" :maxLenL,
             "jL":jL,

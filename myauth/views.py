@@ -32,7 +32,10 @@ def register_page(request):
             if user is not None:
                 login(request,user)
             return redirect(reverse('myauth:welcome'))
-    context = {'form': form}
+    context = {
+        'ia': request.user.is_authenticated,
+        'form': form
+    }
     return render(request, 'myauth/register.html', context)
 def welcome(request):
     ia=request.user.is_authenticated
@@ -44,7 +47,7 @@ def welcome(request):
     context = {'ia': ia,
                'f':f,
                'l':l}
-    return render(request, "myauth/welcome.html",context)
+    return render(request, "myauth/index.html",context)
 
 class MyLogoutView(LogoutView):
     next_page = reverse_lazy("myauth:welcome")

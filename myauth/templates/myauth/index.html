@@ -1,0 +1,42 @@
+{%  extends "myauth/base.html" %}
+
+
+{% block title %}
+        	Index
+        {% endblock %}
+
+
+{% block body %}
+   <div id="head">{% if ia %}
+      <h1>Здравствуйте, {{ f }} {{ l }}. Это класс математики.</h1>
+
+    {% else%}
+        <h1>Добрый день. Это класс математики.</h1>
+    {% endif%}
+
+  </div>
+  <div id="menu">
+  {% if ia %}
+
+      <div><a href={% url "quiz:work"%}>Выполнить задание</a></div>
+    <!--  <div><a href={% url "quiz:res"%}>Посмотреть результаты</a></div>-->
+      <div><a href={% url "quiz:main_journal"%}>Журнал</a></div>
+      <div class="line"></div>
+      <div><a href={% url "myauth:logout"%}>Выйти из системы</a></div>
+
+    {% else%}
+      <div><a href={% url "myauth:register"%}>Зарегистрироваться</a></div>
+      <div><a href={% url "myauth:login"%}>Войти</a></div>
+
+    {% endif%}
+
+  </div>
+  <div id="content">
+
+   <p>Я отправил всем простые задачи для тестирования системы. Сделайте, пожалуйста. Это не домашнее задание и не для оценки.</p>
+
+  </div>
+  <div id="foot">
+   Copyright &copy; Владимир Витриченко
+  </div>
+{% endblock %}

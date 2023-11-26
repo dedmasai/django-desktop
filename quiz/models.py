@@ -9,9 +9,10 @@ class Task(models.Model):
     toUser=models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
     work=models.ForeignKey(Work, on_delete=models.DO_NOTHING, null=True)
     varNumber=models.IntegerField(default=0)
-    number=models.IntegerField(default=0)
+    number=models.IntegerField(default=0)#type of task
     text=models.TextField(null=False, blank=True)
     answer=models.IntegerField(default=0)
+    uAnswer=models.IntegerField(default=None,null=True)
     rightAnsw=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     isSubmitted = models.BooleanField(default=False)#answered
@@ -20,7 +21,7 @@ class AnswerQuiz(models.Model):
     taskN = models.IntegerField(default=0)
     userN = models.IntegerField(default=0)
     numbInV = models.IntegerField(default=0)
-    uAnswer = models.IntegerField(default=0)
+    uAnswer = models.IntegerField(default=0,null=True)
     correct = models.BooleanField(default=False)
     isSubmitted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
