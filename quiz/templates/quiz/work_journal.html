@@ -8,18 +8,24 @@
 	<tbody>
         <tr>
 			<td> Ученик </td>
-			{% for t in maxLenL %}
-				<td> {{t}} </td>
+			{% for w in wsAll %}
+				<td> {{w.name}} </td>
 			{% endfor %}
-			<td> Верных ответов </td>
+			<td> Сумма баллов </td>
 		</tr>
     {% for u in jL %}
 		<tr>
 			<td> {{ u.name }}</td>
-            {% for t in u.pl %}
-				<td> {{ t }} </td>
+
+
+            {% for wms in u.pl %}
+				<td>
+                    {% for wm in wms %}
+                        {{ wm }}
+                    {% endfor %}
+                </td>
 			{% endfor %}
-            <td> {{ u.corAns}}</td>
+            <td> {{ u.bal}}</td>
 		</tr>
     {% endfor %}
     </table>

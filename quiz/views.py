@@ -44,26 +44,19 @@ def quiz(request:HttpRequest):
 
 def results(request: HttpRequest):
     if request.user.is_authenticated:
-        answs = AnswerQuiz.objects.filter(userN=request.user.id, isSubmitted=True)
-        if answs:
-            all=answs.count()
-            count=answs.filter(correct=True).count()
-            if count>3:
-                if count *2  < all:
-                    mark=2
-                elif count*4<3*all:
-                    mark=3
-                elif count*10<all*9:
-                    mark=4
-                else:mark=5
-            else:
-                mark=count+2
+        ws = request.user.student.workToDo.all()
+        wksL=[]
+        for w in ws:
+            tskL=[]
+            tasks = Task.objects.filter(toUser=request.user, isSubmitted=True,work=w)
+            for task in tasks:
+                tskL.append({"n":task.number,"ans":task.uAnswer,"rAns":task.answer,"zachet":task.rightAnsw})
+            wksL.append({"n":w.name,"t":tskL})
+
             context = {
-                "all":all,
-                "count":count,
-                "mark":mark,
-                "answs": answs,
+                "wksL":wksL,
                 "user": request.user,
+                'ia': request.user.is_authenticated
             }
         return render(request, "quiz/results.html", context=context)
     else:
@@ -140,24 +133,31 @@ def mainJournal(request: HttpRequest):
         tsks=Task.objects.all()        
         jL=[]
         maxLen=0
+        wsAll=Work.objects.all()
         for usr in usrs:
-            tsksf = tsks.filter(toUser=usr, isSubmitted=True)
-            plusList = []
-            for t in tsksf:
-                if t.rightAnsw:
-                    plusList.append('+')
+            bal=0
+            ws=usr.student.workToDo.all()
+            workL=[]
+            for w in wsAll:
+                tsksf = tsks.filter(toUser=usr, isSubmitted=True,work=w)
+                plusList = []
+                if w in ws:
+                    for t in tsksf:
+                        if t.rightAnsw:
+                            plusList.append('+')
+                        else:
+                            plusList.append('-')
+                    plusList.append(plusList.count("+"))
+                    bal+=plusList.count("+")
                 else:
-                    plusList.append('-')
-            jL.append({"name":usr.first_name+' '+usr.last_name, "pl":plusList,"corAns":plusList.count("+")})
-            if len(plusList)>maxLen:
-                maxLen=len(plusList)
-                maxLenL=[]
-                for t in tsksf:
-                    maxLenL.append(t.number)
+                    plusList.append('X'*w.numbOfTasks+'0')
+                workL.append(plusList)
+            jL.append({"name":usr.first_name+' '+usr.last_name, "pl":workL, "bal":bal})
+
         context = {
             'ia':request.user.is_authenticated,
             'usrs':usrs,
-            "maxLenL" :maxLenL,
+            "wsAll":wsAll,
             "jL":jL,
             "user": request.user,
         }
