@@ -1,0 +1,28 @@
+{%  extends "quiz/base.html" %}
+        {% block title %}
+        	Журнал
+        {% endblock %}
+{% block body %}
+    <table class="blueTable">
+        <caption> <h1>Журнал  </h1> <h3>{{ user.first_name }} {{ user.last_name }}</h3> </caption>
+	<tbody>
+    <tr>
+			<td> Ученик </td>
+			{% for t in tL %}
+				<td> {{forloop.counter}} </td>
+			{% endfor %}
+			<td> Верных ответов </td>
+		</tr>
+    {% for u in uList %}
+		<tr>
+			<td> {{ u.name }}</td>
+            {% for t in u.plus %}
+				<td> {{ t }} </td>
+			{% endfor %}
+            <td> {{ u.correctAns}}</td>
+		</tr>
+    {% endfor %}
+    </table>
+
+<h3><a href={% url "myauth:welcome"%}>Вернуться на основную страницу</a></h3>
+{% endblock %}

@@ -1,0 +1,15 @@
+{%  extends "quiz/base.html" %}
+        {% block title %}
+        	Quiz
+        {% endblock %}
+{% block body %}
+        <h1>Вариант номер {{ t.varNumber }}</h1>
+        <h1>{{ fname }} {{ lname }}</h1>
+        <h1>Задание номер {{ t.number }}</h1>
+        <div>{{ t.text }}</div>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_ul}}
+        <button type="submit">Отправить ответ</button>
+        </form>
+{% endblock %}
