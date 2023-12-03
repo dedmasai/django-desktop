@@ -113,7 +113,7 @@ def work(request:HttpRequest):
             if tasks.exists():
                 dic=[]
                 for w in ws:
-                    dic.append([w.name,Task.objects.filter(toUser=request.user, isSubmitted=False,work=w)])
+                    dic.append({"name":w.name,"ts":Task.objects.filter(toUser=request.user, isSubmitted=False,work=w)})
                 context ={
                     "dic":dic,
                     "tasks":tasks,
@@ -128,9 +128,9 @@ def work(request:HttpRequest):
         return redirect('myauth:register')
 
 def mainJournal(request: HttpRequest):
-    if request.user.is_authenticated:        
+    if request.user.is_authenticated:
         usrs=User.objects.all().order_by("last_name")
-        tsks=Task.objects.all()        
+        tsks=Task.objects.all()
         jL=[]
         maxLen=0
         wsAll=Work.objects.all()
@@ -140,17 +140,17 @@ def mainJournal(request: HttpRequest):
             workL=[]
             for w in wsAll:
                 tsksf = tsks.filter(toUser=usr, isSubmitted=True,work=w)
-                plusList = []
+                plusList = ""
                 if w in ws:
                     for t in tsksf:
                         if t.rightAnsw:
-                            plusList.append('+')
+                            plusList+='+'
                         else:
-                            plusList.append('-')
-                    plusList.append(plusList.count("+"))
+                            plusList+='-'
+                    plusList+=str(plusList.count("+"))
                     bal+=plusList.count("+")
                 else:
-                    plusList.append('X'*w.numbOfTasks+'0')
+                    plusList+='X'*w.numbOfTasks+'0'
                 workL.append(plusList)
             jL.append({"name":usr.first_name+' '+usr.last_name, "pl":workL, "bal":bal})
 
