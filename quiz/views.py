@@ -50,7 +50,7 @@ def results(request: HttpRequest):
             tskL=[]
             tasks = Task.objects.filter(toUser=request.user, isSubmitted=True,work=w)
             for task in tasks:
-                tskL.append({"n":task.number,"ans":task.uAnswer,"rAns":task.answer,"zachet":task.rightAnsw})
+                tskL.append({"n":task.number,"ans":task.uAnswer,"rAns":task.answer,"zachet":task.rightAnsw,"text":task.text})
             wksL.append({"n":w.name,"t":tskL})
 
             context = {

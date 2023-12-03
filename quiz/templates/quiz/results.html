@@ -10,6 +10,7 @@
 	<tbody>
     <tr>
 			<td> Номер задания </td>
+            <td> Текст задания </td>
 			<td> Ваш ответ </td>
             <td> Верный ответ </td>
 			<td> Задание зачтено </td>
@@ -18,6 +19,7 @@
     {% for t in w.t %}
 		<tr>
 			<td> {{ t.n }}</td>
+            <td> {{ t.text }}</td>
             <td> {{ t.ans }}</td>
             <td> {{ t.rAns }}</td>
             <td> {% if t.zachet %}Да
@@ -29,8 +31,4 @@
 {% endfor %}
 
 
-
-    
-
-<h3><a href={% url "myauth:welcome"%}>Вернуться на основную страницу</a></h3>
 {% endblock %}
