@@ -1,11 +1,11 @@
 {%  extends "quiz/base.html" %}
         {% block title %}
-        	Регистрация пятых классов
+        	Регистрация
         {% endblock %}
 {% block body %}
 <form method="POST" action="">
     {% csrf_token %}
-    <h3>Регистрация пятых классов</h3>
+    <h3>Регистрация</h3>
     <form method="post">
     {% csrf_token %}
         {{ form.as_p }}
